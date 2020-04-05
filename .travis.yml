@@ -44,6 +44,6 @@ jobs:
       user: __token__
       password: 
         secure: BnItVeCv5wKUDyyJyDlqyRFEljE3cKi2uZaLS6DiNcBILLQ/1kVzUTiEc1D/ydFlRzKxnKc2bdelgZnGuYzU6GmLzo1GENXUR3LNewmgZ7gH2Xyqq+t6pI9zSJQQkTuAF7RfVTFWqNXO3RbQSWmnSwsqOS6YeQTQgvF1/4SA9wIHhy5LNsXQdT09qN+BJNFhGrynNAdScJYF1CIGTDtwzBdSCs9T7HfF+0FmCVDDN8q3DrfNw+q4gZb7hRPTzXczCuqwQAoNYS5UcmSaYk6RfxUHaTysmBCGCRfs7kzc3m9USzXB+ZdCBQokqeVEnG00O5YcjensxA0LoVS83jYP040w4GfAiODXGzGjdcyduPNBuc8qknT0gQKKxpRNup7Qo65KPhFe6dDsQYMzcbMF8XSURCZ3YhtgrFoz00klskuN4kMPjQMWWdtO5ZdqXJLz2pc2PdzM2oT63h6FIkRVF34aPTASUuRKHqs0d963eqfYTk8r6Poj+l0YJKBdSkigqOgVrTXkwP64pf4b64v3dUEnjJINlQCXxDvGT9sNh66jSVpZ8YeLZ9N4yb+I4sOYe0sz10bGl/a4A5pvBW/tZnf0C3DOMl0BEEn70kKViYR/ht4Pbj4BcP+tMoMJbkkOcXOohH+urid29z1k4QPA03qS/K9Btvadv4di2UdpRjI=
-      distributions: sdist bdist_wheel
+      distributions: "sdist bdist_wheel"
       skip_existing: true
     
