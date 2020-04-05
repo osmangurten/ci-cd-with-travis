@@ -6,46 +6,44 @@ language: python
 cache: pip
 jobs:
   allow_failures:
-    - python: 3.8-dev
+  - python: 3.8-dev
   include:
-    - stage: "Tests in Linux"
-      name: Python 3.8.0 on Xenial Linux
-      python: 3.8
-    - name: Python 3.8.0 on Bionic Linux
-      python: 3.8
-      dist: bionic
-    - name: Python 3.7.4 on Xenial Linux
-      python: 3.7
-    - name: Python 3.8 dev on Xenial Linux
-      python: 3.8-dev
-      script:
-        - exit 1
-    - stage: "Tests in other platform"
-      name: Python 3.7.4 on macOS
-      os: osx
-      osx_image: xcode11.2
-      language: shell
-    - name: Python 3.8.0 on Windows
-      os: windows
-      language: shell
-      before_install:
-      - choco install python --version 3.8.0
-      - python -m pip install --upgrade pip
-      env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
-    - stage: deploy
-      # We will only run the job deploy if and only if the the branch is develop and we push to develop
-      # That means when we open a PR, when we have the pull request build that will have target branch develop
-      # It will not trigger this job because the type of that job will be target branch develop, but type pull request
-      if: (branch = develop) AND (type = push)
-      os: linux
-      dist: xenial
-      python: 3.8
-      script:
-        - echo "Deploying (for now)"
-install:
-  - pip3 install --upgrade pip
-  - pip3 install -r requirements.txt
-script:
-  - python3 -m pytest -v || python -m pytest -v
-
-# Update to merge to develop branch
+  - stage: Tests in Linux
+    name: Python 3.8.0 on Xenial Linux
+    python: 3.8
+  - name: Python 3.8.0 on Bionic Linux
+    python: 3.8
+    dist: bionic
+  - name: Python 3.7.4 on Xenial Linux
+    python: 3.7
+  - name: Python 3.8 dev on Xenial Linux
+    python: 3.8-dev
+    script:
+    - exit 1
+  - stage: Tests in other platform
+    name: Python 3.7.4 on macOS
+    os: osx
+    osx_image: xcode11.2
+    language: shell
+  - name: Python 3.8.0 on Windows
+    os: windows
+    language: shell
+    before_install:
+    - choco install python --version 3.8.0
+    - python -m pip install --upgrade pip
+    env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
+  - stage: deploy
+    if: "(branch = develop) AND (type = push)"
+    python: 3.8
+    install: skip
+    script: skip
+    deploy:
+      on:
+        branch: develop
+      provider: pypi
+      user: __token__
+      password: 
+        secure: BnItVeCv5wKUDyyJyDlqyRFEljE3cKi2uZaLS6DiNcBILLQ/1kVzUTiEc1D/ydFlRzKxnKc2bdelgZnGuYzU6GmLzo1GENXUR3LNewmgZ7gH2Xyqq+t6pI9zSJQQkTuAF7RfVTFWqNXO3RbQSWmnSwsqOS6YeQTQgvF1/4SA9wIHhy5LNsXQdT09qN+BJNFhGrynNAdScJYF1CIGTDtwzBdSCs9T7HfF+0FmCVDDN8q3DrfNw+q4gZb7hRPTzXczCuqwQAoNYS5UcmSaYk6RfxUHaTysmBCGCRfs7kzc3m9USzXB+ZdCBQokqeVEnG00O5YcjensxA0LoVS83jYP040w4GfAiODXGzGjdcyduPNBuc8qknT0gQKKxpRNup7Qo65KPhFe6dDsQYMzcbMF8XSURCZ3YhtgrFoz00klskuN4kMPjQMWWdtO5ZdqXJLz2pc2PdzM2oT63h6FIkRVF34aPTASUuRKHqs0d963eqfYTk8r6Poj+l0YJKBdSkigqOgVrTXkwP64pf4b64v3dUEnjJINlQCXxDvGT9sNh66jSVpZ8YeLZ9N4yb+I4sOYe0sz10bGl/a4A5pvBW/tZnf0C3DOMl0BEEn70kKViYR/ht4Pbj4BcP+tMoMJbkkOcXOohH+urid29z1k4QPA03qS/K9Btvadv4di2UdpRjI=
+      distributions: sdist bdist_wheel
+      skip_existing: true
+    
